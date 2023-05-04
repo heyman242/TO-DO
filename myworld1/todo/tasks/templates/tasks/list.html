@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+
+	body{
+		background-color: #1E1E1E;
+        color: #fff;
+	}
+
+	input{
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		box-sizing: border-box;
+		background-color: #212121;
+        border-color: #303030;
+        color: #fff;
+	}
+
+	input::placeholder {
+	  color: #757575;
+	}
+
+	.submit{
+		background-color: #6BA3E8;
+	}
+
+	.center-column{
+		width:600px;
+		margin: 20px auto;
+		padding:20px;
+		background-color: #2B2B2B;
+		border-radius: 3px;
+		box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+		text-align: center;
+	}
+
+	.item-row{
+		background-color: #3E3E3E;
+		margin: 10px;
+		padding: 20px;
+		border-radius: 3px;
+		font-size: 16px;
+		box-shadow: 0px -1px 10px -4px rgba(0,0,0,0.75);
+	}
+
+	.btn-info{
+		background-color: #2196F3;
+		border-color: #2196F3;
+	}
+
+	.btn-danger{
+		background-color: #ffae19;
+		border-color: #e59400;
+	}
+
+</style>
+<div class="center-column">
+	<form method="POST" action="/">
+	{% csrf_token %}
+	{{form.title}}
+	<input class="btn btn-info" type="submit" name="Create Task" value="Create Task">
+</form>
+
+<div class="todo-list">
+
+{% for task in tasks %}
+	<div class="item-row">
+
+		{% if task.complete == True %}
+		<strike><h3>{{task}}</h3></strike>
+		{% else %}
+		<span><h3>{{task}}</h3></span>
+		{% endif %}
+		<a class="btn btn-sm btn-info" href="{% url 'update_task' task.id %}">Update</a>
+		<a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}">Delete</a>
+
+
+	</div>
+{% endfor %}
+</div>
+</div>
